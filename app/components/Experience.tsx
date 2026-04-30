@@ -6,6 +6,14 @@ import { useRef, useState, useEffect } from "react";
 
 const experiences = [
   {
+    title: "ML Engineer Intern",
+    company: "DeepSense / MarineLabs",
+    location: "Halifax, NS, Canada",
+    period: "Jan 2026 - Apr 2026",
+    description: "Developed an end-to-end computer vision pipeline on AWS SageMaker (ml.g5.2xlarge, NVIDIA A10G) to detect vessels from buoy-mounted cameras across 24 operational buoys. Fine-tuned Faster R-CNN ResNet50 FPN on 9,565 annotated bounding boxes, achieving a test mAP@50 of 0.8388. Built a nearshore-specific model using hard negative mining - suppressing dock, building, and structure false positives - pushing val mAP@50 to 0.8780 (+0.138 over baseline). Implemented a bounding box area fraction classifier for distance estimation achieving 75.5% accuracy over 61,218 images, complementing AIS-based vessel tracking with vision-based detection for non-broadcasting vessels.",
+    technologies: ["PyTorch", "Faster R-CNN", "AWS SageMaker", "Python", "Grounding DINO", "YOLOv11", "SAM2", "Computer Vision", "Albumentations"],
+  },
+  {
     title: "Software Engineer",
     company: "Azuga Inc",
     location: "Bangalore, KA, India",

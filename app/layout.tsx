@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Krishna Tej | Software Engineer & Cloud Architect",
-  description: "Software Engineer specializing in cloud-native applications, microservices, and distributed systems. Building scalable solutions with Java, Python, and AWS.",
+  title: "Krishna Tej | ML Engineer & Software Developer",
+  description: "ML Engineer & Software Developer specializing in computer vision, machine learning, and cloud-native applications. Building scalable solutions with Python, PyTorch, and AWS.",
 };
 
 export default function RootLayout({

@@ -28,9 +28,20 @@ const skillCategories = [
     ],
   },
   {
+    category: "Machine Learning & AI",
+    skills: [
+      { name: "PyTorch & torchvision", level: 85 },
+      { name: "Computer Vision (Faster R-CNN, YOLO)", level: 83 },
+      { name: "Grounding DINO & SAM2", level: 78 },
+      { name: "scikit-learn", level: 80 },
+      { name: "Albumentations (Data Augmentation)", level: 78 },
+      { name: "AWS SageMaker", level: 82 },
+    ],
+  },
+  {
     category: "Cloud & DevOps",
     skills: [
-      { name: "AWS (EC2, Lambda, S3, API Gateway)", level: 88 },
+      { name: "AWS (EC2, Lambda, S3, SageMaker)", level: 88 },
       { name: "AWS CloudFormation", level: 85 },
       { name: "Docker", level: 85 },
       { name: "Kubernetes", level: 80 },
@@ -77,7 +88,7 @@ export default function Skills() {
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={categoryIndex}

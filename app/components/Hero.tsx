@@ -109,15 +109,15 @@ export default function Hero() {
               variants={itemVariants}
               className="text-xl md:text-2xl lg:text-3xl text-gray-800 dark:text-gray-300 mb-8 font-light"
             >
-              Full Stack Engineer & Cloud Architect
+              ML Engineer & Software Developer
             </motion.p>
 
             <motion.p
               variants={itemVariants}
               className="text-lg md:text-xl text-gray-700 dark:text-gray-400 mb-6 max-w-2xl md:max-w-none mx-auto md:mx-0"
             >
-              Building scalable cloud-native solutions with Java, Python, and AWS.
-              Transforming complex systems into efficient, reliable microservices.
+              Building computer vision pipelines and scalable cloud-native systems with Python, PyTorch, and AWS.
+              Turning complex data into intelligent, production-ready solutions.
             </motion.p>
 
             <motion.p
@@ -125,7 +125,7 @@ export default function Hero() {
               className="text-base md:text-lg text-blue-600 dark:text-blue-400 mb-12 max-w-2xl md:max-w-none mx-auto md:mx-0 font-medium"
             >
               Currently pursuing Master of Applied Computer Science at Dalhousie University.
-              Seeking internship or early career opportunities in software engineering and cloud architecture.
+              Seeking opportunities in machine learning engineering and software development.
             </motion.p>
 
             <motion.div
