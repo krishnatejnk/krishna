@@ -4,125 +4,87 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
-const skillCategories = [
-  {
-    category: "Languages & Frameworks",
-    skills: [
-      { name: "Java (Spring Boot, Spring MVC)", level: 90 },
-      { name: "Python", level: 88 },
-      { name: "JavaScript", level: 85 },
-      { name: "React", level: 82 },
-      { name: "JUnit, Mockito", level: 80 },
-      { name: "Go (basic)", level: 60 },
-    ],
-  },
-  {
-    category: "Databases & Messaging",
-    skills: [
-      { name: "PostgreSQL", level: 85 },
-      { name: "MongoDB", level: 85 },
-      { name: "MySQL", level: 80 },
-      { name: "Apache Kafka", level: 88 },
-      { name: "Apache Flume", level: 85 },
-      { name: "Redis", level: 75 },
-    ],
-  },
+const skillGroups = [
   {
     category: "Machine Learning & AI",
     skills: [
-      { name: "PyTorch & torchvision", level: 85 },
-      { name: "Computer Vision (Faster R-CNN, YOLO)", level: 83 },
-      { name: "Grounding DINO & SAM2", level: 78 },
-      { name: "scikit-learn", level: 80 },
-      { name: "Albumentations (Data Augmentation)", level: 78 },
-      { name: "AWS SageMaker", level: 82 },
+      "PyTorch", "Faster R-CNN", "Grounding DINO", "SAM2", "YOLOv11",
+      "scikit-learn", "Albumentations", "AWS SageMaker",
+      "Hugging Face Transformers", "BERT / DistilBERT", "FAISS", "Flan-T5",
+    ],
+  },
+  {
+    category: "Languages & Frameworks",
+    skills: [
+      "Python", "Java", "JavaScript", "TypeScript", "Scala",
+      "Spring Boot", "Spring MVC", "FastAPI", "React", "Next.js", "Go",
     ],
   },
   {
     category: "Cloud & DevOps",
     skills: [
-      { name: "AWS (EC2, Lambda, S3, SageMaker)", level: 88 },
-      { name: "AWS CloudFormation", level: 85 },
-      { name: "Docker", level: 85 },
-      { name: "Kubernetes", level: 80 },
-      { name: "Jenkins & GitHub Actions", level: 82 },
-      { name: "GCP (Pub/Sub, GKE)", level: 75 },
+      "AWS (EC2, Lambda, S3, SageMaker)", "AWS CloudFormation",
+      "Docker", "Kubernetes", "Jenkins", "GitHub Actions",
+      "GCP (Pub/Sub, GKE)", "CloudWatch", "IAM / KMS",
     ],
   },
   {
-    category: "Architecture & Practices",
+    category: "Data & Messaging",
     skills: [
-      { name: "Microservices Architecture", level: 88 },
-      { name: "REST API Design", level: 90 },
-      { name: "Test-Driven Development (TDD)", level: 85 },
-      { name: "Agile/Scrum", level: 85 },
-      { name: "CloudWatch & Monitoring", level: 85 },
-      { name: "IAM, KMS, Security", level: 82 },
+      "PostgreSQL", "MongoDB", "MySQL", "Redis",
+      "Apache Kafka", "Apache Flume", "DynamoDB", "RDS",
+    ],
+  },
+  {
+    category: "Practices",
+    skills: [
+      "Microservices Architecture", "REST API Design", "ETL Pipelines",
+      "Test-Driven Development", "Agile / Scrum",
+      "Computer Vision", "Object Detection", "RAG Systems",
     ],
   },
 ];
 
-
 export default function Skills() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section
-      id="skills"
-      ref={ref}
-      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-blue-900/10"
-    >
-      <div className="max-w-7xl mx-auto">
+    <section id="skills" ref={ref} className="py-24 px-6 lg:px-8 bg-white dark:bg-neutral-950 border-t border-stone-100 dark:border-neutral-900">
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-              Skills
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto"></div>
+          <p className="text-amber-500 dark:text-amber-400 text-xs tracking-widest uppercase mb-3 font-medium">Skills</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">What I work with.</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {skillCategories.map((category, categoryIndex) => (
+        <div>
+          {skillGroups.map((group, groupIndex) => (
             <motion.div
-              key={categoryIndex}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.15, ease: "easeOut" }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white/70 dark:bg-black/50 backdrop-blur-sm border border-slate-200 dark:border-blue-500/30 shadow-sm rounded-2xl p-6"
+              key={groupIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: groupIndex * 0.08 }}
+              className="border-t border-stone-200 dark:border-neutral-800 py-8 grid md:grid-cols-[220px,1fr] gap-6 md:gap-12 items-start"
             >
-              <h3 className="text-2xl font-bold text-white mb-6 text-center">
-                <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                  {category.category}
-                </span>
-              </h3>
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 dark:text-gray-300 font-medium">{skill.name}</span>
-                      <span className="text-blue-600 dark:text-blue-400 text-sm font-semibold">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                        transition={{ duration: 0.8, delay: categoryIndex * 0.15 + skillIndex * 0.08, ease: "easeOut" }}
-                        className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"
-                      />
-                    </div>
-                  </div>
+              <p className="text-neutral-400 dark:text-neutral-500 text-sm pt-1">{group.category}</p>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="text-sm px-3 py-1.5 border border-stone-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300 rounded hover:border-amber-400 dark:hover:border-amber-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors cursor-default"
+                  >
+                    {skill}
+                  </span>
                 ))}
               </div>
             </motion.div>
           ))}
+          <div className="border-t border-stone-200 dark:border-neutral-800" />
         </div>
       </div>
     </section>

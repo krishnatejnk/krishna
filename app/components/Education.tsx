@@ -9,16 +9,15 @@ const education = [
     degree: "Master of Applied Computer Science",
     institution: "Dalhousie University",
     location: "Halifax, NS, Canada",
-    period: "Sep 2024 - Apri 2026",
-    gpa: "3.45 / 4.0",
-    description: "Pursuing advanced studies in computer science with focus on cloud computing, distributed systems, machine learning, and software engineering. Building expertise in modern software development practices and cutting-edge technologies.",
+    period: "Sep 2024 - Apr 2026",
+    gpa: "3.46 / 4.0",
     courses: [
       "Cloud Computing & Distributed Systems",
       "Machine Learning & Artificial Intelligence",
       "Software Engineering Practices",
       "Database Systems",
       "Advanced Algorithms",
-      "Web Services & APIs"
+      "Web Services & APIs",
     ],
   },
   {
@@ -27,7 +26,6 @@ const education = [
     location: "Bangalore, KA, India",
     period: "Sep 2018 - Sep 2022",
     gpa: "8.7 / 10.0",
-    description: "Comprehensive undergraduate program covering core computer science fundamentals, software engineering, data structures, algorithms, and system design. Developed strong foundation in programming, database management, and software development lifecycle.",
     courses: [
       "Data Structures & Algorithms",
       "Database Management Systems",
@@ -35,106 +33,58 @@ const education = [
       "Computer Networks",
       "Operating Systems",
       "Object-Oriented Programming",
-      "Web Technologies",
-      "Machine Learning"
+      "Machine Learning",
     ],
   },
 ];
 
 export default function Education() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section
-      id="education"
-      ref={ref}
-      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-900/10 to-black"
-    >
-      <div className="max-w-7xl mx-auto">
+    <section id="education" ref={ref} className="py-24 px-6 lg:px-8 bg-white dark:bg-neutral-950 border-t border-stone-100 dark:border-neutral-900">
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-              Education
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto"></div>
+          <p className="text-amber-500 dark:text-amber-400 text-xs tracking-widest uppercase mb-3 font-medium">Education</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">Academic background.</h2>
         </motion.div>
 
-        <div className="relative">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 transform md:-translate-x-1/2 bg-slate-200 dark:bg-gradient-to-b dark:from-blue-500 dark:via-blue-600 dark:to-blue-700"></div>
-
-          <div className="space-y-12">
-            {education.map((edu, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
-                className={`relative flex items-center ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
-              >
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-black transform md:-translate-x-1/2 z-10"></div>
-
-                <div
-                  className={`ml-20 md:ml-0 md:w-5/12 ${
-                    index % 2 === 0 ? "md:mr-auto md:pr-8" : "md:ml-auto md:pl-8"
-                  }`}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-white/70 dark:bg-black/50 backdrop-blur-sm border border-slate-200 dark:border-blue-500/30 shadow-sm rounded-2xl p-6 relative overflow-hidden"
-                  >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-600/20 to-blue-700/20 rounded-full blur-2xl"></div>
-                    <div className="relative z-10">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{edu.degree}</h3>
-                        <div className="text-sm text-blue-600 dark:text-blue-400 font-semibold text-right">
-                          {edu.period.split(' - ').map((part, idx) => (
-                            <div key={idx}>
-                              {idx === 0 ? part : `- ${part}`}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <h4 className="text-lg text-blue-700 dark:text-blue-300 mb-2">{edu.institution}</h4>
-                      {edu.location && <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{edu.location}</p>}
-                      {edu.gpa && (
-                        <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-4">
-                          GPA: {edu.gpa}
-                        </p>
-                      )}
-                      <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">{edu.description}</p>
-                      {edu.courses && edu.courses.length > 0 && (
-                        <div className="space-y-2">
-                          <p className="text-sm font-semibold text-blue-700 dark:text-blue-300">Relevant Courses:</p>
-                          <div className="flex flex-wrap gap-2">
-                            {edu.courses.map((course, courseIndex) => (
-                              <span
-                                key={courseIndex}
-                                className="px-3 py-1 bg-gradient-to-r from-blue-600/20 to-blue-700/20 border border-blue-500/50 rounded-full text-xs text-blue-700 dark:text-blue-300"
-                              >
-                                {course}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </motion.div>
+        <div>
+          {education.map((edu, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="border-t border-stone-200 dark:border-neutral-800 py-10 grid md:grid-cols-[220px,1fr] gap-6 md:gap-12"
+            >
+              <div className="pt-1">
+                <p className="text-neutral-400 dark:text-neutral-500 text-sm">{edu.period}</p>
+                <p className="text-neutral-300 dark:text-neutral-600 text-xs mt-1">{edu.location}</p>
+                <p className="text-amber-500 dark:text-amber-400 text-xs mt-3 font-medium">GPA: {edu.gpa}</p>
+              </div>
+              <div>
+                <h3 className="text-neutral-900 dark:text-neutral-100 font-semibold text-xl mb-1">{edu.degree}</h3>
+                <p className="text-neutral-500 dark:text-neutral-400 text-sm mb-6">{edu.institution}</p>
+                <div className="flex flex-wrap gap-2">
+                  {edu.courses.map((course) => (
+                    <span key={course} className="text-xs px-2.5 py-1 border border-stone-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-500 rounded">
+                      {course}
+                    </span>
+                  ))}
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          ))}
+          <div className="border-t border-stone-200 dark:border-neutral-800" />
         </div>
       </div>
     </section>
   );
 }
-

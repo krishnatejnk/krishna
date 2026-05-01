@@ -1,183 +1,81 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-blue-900/20 to-black">
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.3), transparent 50%)`,
-        }}
-      />
+    <section className="relative min-h-screen flex items-center bg-white dark:bg-neutral-950">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 w-full py-24">
+        <div className="grid md:grid-cols-[1fr,auto] gap-12 lg:gap-20 items-center">
 
-      <motion.div
-        className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -100, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-20"
-        animate={{
-          x: [0, -100, 0],
-          y: [0, 100, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      <motion.div
-        className="relative z-10 px-4 max-w-7xl mx-auto w-full"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="flex flex-col md:flex-row items-center md:items-center gap-8 md:gap-12 lg:gap-16">
           <motion.div
-            variants={itemVariants}
-            className="flex-shrink-0"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <div className="relative w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden border-4 border-blue-500/50 shadow-2xl shadow-blue-500/30">
-              <Image
-                src="/profile.jpeg"
-                alt="Krishna Tej"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent"></div>
+            <p className="text-amber-500 dark:text-amber-400 text-xs font-medium tracking-widest uppercase mb-8">
+              ML Engineer & Software Developer
+            </p>
+            <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-neutral-900 dark:text-neutral-100 leading-none mb-8 tracking-tight">
+              Krishna<br />Tej.
+            </h1>
+            <p className="text-neutral-500 dark:text-neutral-400 text-lg md:text-xl max-w-xl mb-3 leading-relaxed">
+              Building computer vision systems and cloud-native software.
+              Masters in Applied Computer Science at Dalhousie University.
+            </p>
+            <p className="text-neutral-400 dark:text-neutral-600 text-sm mb-12">
+              Halifax, Nova Scotia, Canada
+            </p>
+            <div className="flex gap-4 flex-wrap">
+              <a
+                href="#projects"
+                onClick={(e) => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
+                className="px-6 py-3 bg-amber-500 dark:bg-amber-400 text-white dark:text-neutral-950 text-sm font-semibold rounded hover:bg-amber-400 dark:hover:bg-amber-300 transition-colors"
+              >
+                View Work
+              </a>
+              <a
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+                className="px-6 py-3 border border-stone-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 text-sm font-semibold rounded hover:border-neutral-500 dark:hover:border-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+              >
+                Get In Touch
+              </a>
             </div>
           </motion.div>
 
-          <div className="flex-1 text-center md:text-left">
-            <motion.h1
-              variants={itemVariants}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
-            >
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
-                Krishna Tej
-              </span>
-            </motion.h1>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-xl md:text-2xl lg:text-3xl text-gray-800 dark:text-gray-300 mb-8 font-light"
-            >
-              ML Engineer & Software Developer
-            </motion.p>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-lg md:text-xl text-gray-700 dark:text-gray-400 mb-6 max-w-2xl md:max-w-none mx-auto md:mx-0"
-            >
-              Building computer vision pipelines and scalable cloud-native systems with Python, PyTorch, and AWS.
-              Turning complex data into intelligent, production-ready solutions.
-            </motion.p>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-base md:text-lg text-blue-600 dark:text-blue-400 mb-12 max-w-2xl md:max-w-none mx-auto md:mx-0 font-medium"
-            >
-              Currently pursuing Master of Applied Computer Science at Dalhousie University.
-              Seeking opportunities in machine learning engineering and software development.
-            </motion.p>
-
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center"
-            >
-              <motion.a
-                href="#projects"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full font-semibold text-white shadow-lg shadow-blue-500/50"
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(59, 130, 246, 0.6)" }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View My Work
-              </motion.a>
-              <motion.a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-8 py-4 border-2 border-blue-500 rounded-full font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-500/10 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get In Touch
-              </motion.a>
-            </motion.div>
-          </div>
-        </div>
-
-        <motion.div
-          variants={itemVariants}
-          className="mt-20"
-        >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-10 border-2 border-blue-600 dark:border-blue-400 rounded-full mx-auto flex justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="hidden md:block"
           >
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-3 bg-blue-600 dark:bg-blue-400 rounded-full mt-2"
-            />
+            <div className="relative w-56 h-56 lg:w-64 lg:h-64">
+              <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                <Image
+                  src="/profile.jpeg"
+                  alt="Krishna Tej"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              <div className="absolute -bottom-3 -right-3 w-14 h-14 border-b-2 border-r-2 border-amber-500 dark:border-amber-400 rounded-br-xl" />
+              <div className="absolute -top-3 -left-3 w-14 h-14 border-t-2 border-l-2 border-amber-500 dark:border-amber-400 rounded-tl-xl" />
+            </div>
           </motion.div>
-        </motion.div>
+
+        </div>
+      </div>
+
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className="w-px h-10 bg-gradient-to-b from-neutral-400 dark:from-neutral-600 to-transparent" />
       </motion.div>
     </section>
   );
 }
-
