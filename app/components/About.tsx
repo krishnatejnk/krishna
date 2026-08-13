@@ -12,8 +12,8 @@ export default function About() {
         <h2 className="text-4xl font-medium tracking-[-0.02em] text-white">About</h2>
       </Reveal>
 
-      <Reveal className="grid gap-14 md:grid-cols-[1.15fr,1fr] md:gap-[72px]">
-        <div className="flex flex-col gap-5 text-lg leading-[1.7] text-dsg-ink-2">
+      <Reveal className="grid max-w-[1100px] gap-14 md:grid-cols-[1.15fr,1fr] md:gap-[72px]">
+        <div className="flex max-w-[640px] flex-col gap-5 text-lg leading-[1.7] text-dsg-ink-2">
           <p>
             I build software end to end: interfaces people actually use, and the services behind them.
             Most of my recent work has been in cloud and distributed systems, with a steady side interest

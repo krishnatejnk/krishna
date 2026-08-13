@@ -14,7 +14,7 @@ export default function PageRoute({ children }: { children: ReactNode }) {
 
   return (
     <RemeasureContext.Provider value={remeasure}>
-      <div ref={scopeRef} className="relative mx-auto max-w-[1080px] px-6 pb-40 sm:px-10 md:px-12">
+      <div ref={scopeRef} className="relative mx-auto max-w-[1760px] px-6 pb-40 sm:px-10 md:px-16 xl:px-24">
         <div
           ref={trackRef}
           className="pointer-events-none absolute inset-x-0 z-0 hidden md:block"

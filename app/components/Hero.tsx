@@ -13,7 +13,7 @@ export default function Hero() {
         <div className="absolute inset-1 rounded-full bg-dsg-accent" />
       </div>
 
-      <Reveal className="grid items-center gap-12 md:grid-cols-[1fr,268px] lg:gap-16">
+      <Reveal className="grid max-w-[880px] items-center gap-12 md:grid-cols-[1fr,268px] lg:gap-16">
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.18em] text-dsg-accent">
             <span className="h-1.5 w-1.5 animate-blink rounded-full bg-dsg-accent" />
