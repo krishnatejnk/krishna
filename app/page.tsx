@@ -1,29 +1,20 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Navbar from "./components/Navbar";
+import PageRoute from "./components/PageRoute";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Experience from "./components/Experience";
 import Projects from "./components/Projects";
-import Education from "./components/Education";
-import Skills from "./components/Skills";
+import About from "./components/About";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative pt-16">
+    <main className="relative min-h-screen overflow-hidden bg-dsg-charcoal text-dsg-ink">
       <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Education />
-      <Skills />
-      <Contact />
-      <Footer />
+      <PageRoute>
+        <Hero />
+        <Projects />
+        <About />
+        <Contact />
+      </PageRoute>
     </main>
   );
 }
-

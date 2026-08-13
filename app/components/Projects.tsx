@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import Reveal from "./Reveal";
 
 type Category = "ai" | "fullstack";
 
@@ -208,225 +208,157 @@ const projects: Project[] = [
   },
 ];
 
-const categoryMeta: Record<Category, {
-  label: string;
-  blurb: string;
-  panelBg: string;
-  panelBorder: string;
-  heading: string;
-  tag: string;
-  cardHover: string;
-  accentBg: string;
-  accentBgHover: string;
-}> = {
-  ai: {
-    label: "AI & Machine Learning",
-    blurb: "Computer vision, NLP, agentic pipelines, and MLOps.",
-    panelBg: "bg-amber-50/70 dark:bg-amber-400/[0.03]",
-    panelBorder: "border-amber-200/70 dark:border-amber-900/40",
-    heading: "text-amber-600 dark:text-amber-400",
-    tag: "text-amber-600 dark:text-amber-400",
-    cardHover: "hover:border-amber-300 dark:hover:border-amber-700",
-    accentBg: "bg-amber-500 dark:bg-amber-400",
-    accentBgHover: "hover:bg-amber-400 dark:hover:bg-amber-300",
-  },
-  fullstack: {
-    label: "Full-Stack Engineering",
-    blurb: "Web apps, distributed systems, and cloud infrastructure.",
-    panelBg: "bg-sky-50/70 dark:bg-sky-400/[0.03]",
-    panelBorder: "border-sky-200/70 dark:border-sky-900/40",
-    heading: "text-sky-600 dark:text-sky-400",
-    tag: "text-sky-600 dark:text-sky-400",
-    cardHover: "hover:border-sky-300 dark:hover:border-sky-700",
-    accentBg: "bg-sky-500 dark:bg-sky-400",
-    accentBgHover: "hover:bg-sky-400 dark:hover:bg-sky-300",
-  },
-};
+const columns: { category: Category; label: string; items: Project[] }[] = [
+  { category: "ai", label: "AI & machine learning", items: projects.filter((p) => p.category === "ai") },
+  { category: "fullstack", label: "Full-stack engineering", items: projects.filter((p) => p.category === "fullstack") },
+];
 
 const GitHubIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
   </svg>
 );
 
 export default function Projects() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const openModal = (index: number) => {
-    setSelectedProject(index);
+  useEffect(() => {
+    if (!selectedProject) return;
     document.body.style.overflow = "hidden";
-  };
-
-  const closeModal = () => {
-    setSelectedProject(null);
-    document.body.style.overflow = "unset";
-  };
-
-  const groups: { category: Category; items: { project: Project; index: number }[] }[] = (
-    ["ai", "fullstack"] as Category[]
-  ).map((category) => ({
-    category,
-    items: projects
-      .map((project, index) => ({ project, index }))
-      .filter(({ project }) => project.category === category),
-  }));
-
-  const active = selectedProject !== null ? projects[selectedProject] : null;
-  const activeMeta = active ? categoryMeta[active.category] : null;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setSelectedProject(null); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [selectedProject]);
 
   return (
-    <section id="projects" ref={ref} className="py-24 px-6 lg:px-8 bg-white dark:bg-neutral-950 border-t border-stone-100 dark:border-neutral-900">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <p className="text-amber-500 dark:text-amber-400 text-xs tracking-widest uppercase mb-3 font-medium">Projects</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">Things I&apos;ve built.</h2>
-        </motion.div>
+    <section id="projects" className="relative z-[1] pl-6 pt-24 sm:pl-10 sm:pt-32 md:pl-24 md:pt-[140px]">
+      <div data-node="1" className="absolute left-[86%] top-[168px] hidden h-3 w-3 rounded-full border-2 border-dsg-accent bg-dsg-charcoal md:block" />
 
-        <div className="space-y-12">
-          {groups.map(({ category, items }) => {
-            const meta = categoryMeta[category];
-            return (
-              <div
-                key={category}
-                className={`rounded-2xl border ${meta.panelBorder} ${meta.panelBg} p-5 md:p-8`}
+      <Reveal className="flex flex-col gap-3.5 pb-14">
+        <div className="font-mono text-xs uppercase tracking-[0.18em] text-dsg-ink-4">01 — My work</div>
+        <h2 className="text-4xl font-medium tracking-[-0.02em] text-white">Projects</h2>
+      </Reveal>
+
+      <Reveal className="grid gap-10 md:grid-cols-2 md:gap-14">
+        {columns.map((col) => (
+          <div key={col.category} className="flex flex-col gap-1">
+            <div className="flex items-center gap-2.5 pb-4">
+              <span className="h-[7px] w-[7px] rounded-full bg-dsg-accent" />
+              <span className="font-mono text-xs uppercase tracking-[0.18em] text-dsg-ink">{col.label}</span>
+            </div>
+            {col.items.map((project) => (
+              <button
+                key={project.title}
+                onClick={() => setSelectedProject(project)}
+                className="flex flex-col gap-2.5 border-t border-dsg-hairline py-6 pr-4 text-left transition-all duration-200 ease-out hover:bg-dsg-hover hover:pl-3.5"
               >
-                <div className="flex items-baseline justify-between flex-wrap gap-2 mb-6">
-                  <h3 className={`text-lg font-bold tracking-tight ${meta.heading}`}>{meta.label}</h3>
-                  <span className="text-xs text-neutral-400 dark:text-neutral-600">{meta.blurb}</span>
-                </div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {items.map(({ project, index }) => (
-                    <motion.button
-                      key={project.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : {}}
-                      transition={{ duration: 0.4, delay: index * 0.04 }}
-                      onClick={() => openModal(index)}
-                      className={`group text-left border border-stone-200 dark:border-neutral-800 rounded-xl p-6 transition-colors bg-white dark:bg-neutral-950 hover:bg-stone-50 dark:hover:bg-neutral-900 ${meta.cardHover}`}
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <span className={`text-xs font-medium ${meta.tag}`}>{project.type}</span>
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="text-neutral-300 dark:text-neutral-700 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-                            aria-label="GitHub"
-                          >
-                            <GitHubIcon />
-                          </a>
-                        )}
-                      </div>
-                      <h3 className={`text-neutral-900 dark:text-neutral-100 font-semibold text-lg mb-2 transition-colors ${meta.heading.replace("text-", "group-hover:text-")}`}>
-                        {project.title}
-                      </h3>
-                      <p className="text-neutral-500 dark:text-neutral-500 text-sm leading-relaxed mb-4">
-                        {project.tagline}
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.technologies.slice(0, 4).map((tech) => (
-                          <span key={tech} className="text-xs px-2 py-0.5 border border-stone-200 dark:border-neutral-800 text-neutral-400 dark:text-neutral-600 rounded">
-                            {tech}
-                          </span>
-                        ))}
-                        {project.technologies.length > 4 && (
-                          <span className="text-xs text-neutral-300 dark:text-neutral-700">+{project.technologies.length - 4}</span>
-                        )}
-                      </div>
-                    </motion.button>
+                <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-dsg-accent">{project.type}</div>
+                <div className="text-xl font-medium leading-tight text-white">{project.title}</div>
+                <div className="text-sm leading-relaxed text-dsg-ink-2">{project.tagline}</div>
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  {project.technologies.slice(0, 4).map((t) => (
+                    <span key={t} className="border border-dsg-chip px-2 py-1 font-mono text-[11px] text-dsg-ink-3">
+                      {t}
+                    </span>
                   ))}
+                  {project.technologies.length > 4 && (
+                    <span className="font-mono text-[11px] text-dsg-ink-5">+{project.technologies.length - 4}</span>
+                  )}
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+              </button>
+            ))}
+          </div>
+        ))}
+      </Reveal>
 
       <AnimatePresence>
-        {active && activeMeta && (
+        {selectedProject && (
           <>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={closeModal}
-              className="fixed inset-0 bg-black/60 z-50"
+              onClick={() => setSelectedProject(null)}
+              className="fixed inset-0 z-40 bg-dsg-overlay"
             />
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 16 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4"
-              onClick={closeModal}
+              onClick={() => setSelectedProject(null)}
+              className="fixed inset-0 z-40 flex items-center justify-center p-6 md:p-12"
             >
               <div
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white dark:bg-neutral-900 border border-stone-200 dark:border-neutral-800 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                className="relative max-h-[82vh] w-full max-w-[720px] overflow-y-auto border border-dsg-chip bg-dsg-panel p-6 md:p-12"
               >
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <p className={`text-xs font-medium uppercase tracking-wider mb-2 ${activeMeta.tag}`}>
-                      {active.type}
-                    </p>
-                    <h3 className="text-neutral-900 dark:text-neutral-100 font-bold text-2xl">
-                      {active.title}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute right-[22px] top-5 font-mono text-xs uppercase tracking-[0.14em] text-dsg-ink-3 transition-colors hover:text-white"
+                >
+                  Close ✕
+                </button>
+
+                <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-3">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-dsg-accent">{selectedProject.type}</div>
+                    <h3 className="max-w-[540px] text-[28px] font-medium leading-tight tracking-[-0.02em] text-white md:text-[34px]">
+                      {selectedProject.title}
                     </h3>
                   </div>
-                  <button
-                    onClick={closeModal}
-                    className="text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors ml-4 text-2xl leading-none"
-                  >
-                    &times;
-                  </button>
-                </div>
-                <ul className="space-y-3 mb-6">
-                  {active.description.map((point, i) => (
-                    <li key={i} className="flex gap-3 text-neutral-500 dark:text-neutral-400 leading-relaxed text-sm">
-                      <span className={`mt-1.5 w-1 h-1 rounded-full shrink-0 ${activeMeta.accentBg}`} />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {active.technologies.map((tech) => (
-                    <span key={tech} className="text-xs px-2.5 py-1 border border-stone-200 dark:border-neutral-700 text-neutral-500 dark:text-neutral-500 rounded">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-3 flex-wrap">
-                  {active.link && (
-                    <a
-                      href={active.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 text-sm font-medium text-white dark:text-neutral-950 px-4 py-2 rounded transition-colors ${activeMeta.accentBg} ${activeMeta.accentBgHover}`}
-                    >
-                      Live Demo
-                    </a>
-                  )}
-                  {active.github && (
-                    <a
-                      href={active.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 border border-stone-200 dark:border-neutral-700 px-4 py-2 rounded hover:border-neutral-400 dark:hover:border-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-                    >
-                      <GitHubIcon />
-                      View on GitHub
-                    </a>
-                  )}
+
+                  <p className="text-base leading-relaxed text-dsg-ink-2 md:text-[17px] md:leading-[1.65]">
+                    {selectedProject.tagline}
+                  </p>
+
+                  <div className="flex flex-col gap-3.5 border-t border-dsg-hairline pt-5">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-dsg-ink-4">What it does</div>
+                    {selectedProject.description.map((point, i) => (
+                      <div key={i} className="grid grid-cols-[16px,1fr] items-start gap-3">
+                        <span className="mt-[9px] h-1.5 w-1.5 rounded-full bg-dsg-accent" />
+                        <div className="text-[15px] leading-relaxed text-dsg-ink md:text-base">{point}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col gap-3 border-t border-dsg-hairline pt-5">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-dsg-ink-4">Stack</div>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.technologies.map((t) => (
+                        <span key={t} className="border border-dsg-chip px-2.5 py-[5px] font-mono text-[11px] text-dsg-ink-3">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    {selectedProject.link && (
+                      <a
+                        href={selectedProject.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block border border-dsg-accent bg-dsg-accent px-[22px] py-[13px] font-mono text-xs uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent hover:text-dsg-accent"
+                      >
+                        Live demo
+                      </a>
+                    )}
+                    {selectedProject.github && (
+                      <a
+                        href={selectedProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 border border-dsg-line px-[22px] py-[13px] font-mono text-xs uppercase tracking-[0.14em] text-dsg-ink transition-colors hover:border-dsg-ink"
+                      >
+                        <GitHubIcon />
+                        View on GitHub
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>

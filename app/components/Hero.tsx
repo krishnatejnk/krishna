@@ -1,81 +1,55 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
+import Reveal from "./Reveal";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center bg-white dark:bg-neutral-950">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 w-full py-24">
-        <div className="grid md:grid-cols-[1fr,auto] gap-12 lg:gap-20 items-center">
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            <p className="text-amber-500 dark:text-amber-400 text-xs font-medium tracking-widest uppercase mb-8">
-              ML Engineer & Software Developer
-            </p>
-            <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-neutral-900 dark:text-neutral-100 leading-none mb-8 tracking-tight">
-              Krishna<br />Tej.
-            </h1>
-            <p className="text-neutral-500 dark:text-neutral-400 text-lg md:text-xl max-w-xl mb-3 leading-relaxed">
-              Building computer vision systems and cloud-native software.
-              Masters in Applied Computer Science at Dalhousie University.
-            </p>
-            <p className="text-neutral-400 dark:text-neutral-600 text-sm mb-12">
-              Halifax, Nova Scotia, Canada
-            </p>
-            <div className="flex gap-4 flex-wrap">
-              <a
-                href="#projects"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="px-6 py-3 bg-amber-500 dark:bg-amber-400 text-white dark:text-neutral-950 text-sm font-semibold rounded hover:bg-amber-400 dark:hover:bg-amber-300 transition-colors"
-              >
-                View Work
-              </a>
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="px-6 py-3 border border-stone-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 text-sm font-semibold rounded hover:border-neutral-500 dark:hover:border-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-              >
-                Get In Touch
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className="hidden md:block"
-          >
-            <div className="relative w-56 h-56 lg:w-64 lg:h-64">
-              <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                <Image
-                  src="/profile.jpeg"
-                  alt="Krishna Tej"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <div className="absolute -bottom-3 -right-3 w-14 h-14 border-b-2 border-r-2 border-amber-500 dark:border-amber-400 rounded-br-xl" />
-              <div className="absolute -top-3 -left-3 w-14 h-14 border-t-2 border-l-2 border-amber-500 dark:border-amber-400 rounded-tl-xl" />
-            </div>
-          </motion.div>
-
-        </div>
+    <section
+      id="home"
+      className="relative z-[1] flex min-h-[78vh] flex-col justify-center pl-6 pt-32 sm:pl-10 sm:pt-40 md:pl-24 md:pt-[200px]"
+    >
+      <div data-node="1" className="absolute left-[-8px] top-[210px] hidden h-[18px] w-[18px] md:block">
+        <div className="absolute inset-1 rounded-full bg-dsg-accent" />
       </div>
 
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-        animate={{ y: [0, 6, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="w-px h-10 bg-gradient-to-b from-neutral-400 dark:from-neutral-600 to-transparent" />
-      </motion.div>
+      <Reveal className="grid items-center gap-12 md:grid-cols-[1fr,268px] lg:gap-16">
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.18em] text-dsg-accent">
+            <span className="h-1.5 w-1.5 animate-blink rounded-full bg-dsg-accent" />
+            <span>Open to new roles</span>
+          </div>
+          <h1 className="text-balance text-[44px] font-medium leading-[0.98] tracking-[-0.03em] text-white sm:text-[58px] lg:text-[76px]">
+            Krishna Tej
+          </h1>
+          <p className="max-w-[460px] text-base leading-relaxed text-dsg-ink-2 sm:text-lg lg:text-[19px]">
+            Software engineer working across full-stack products, cloud infrastructure and distributed
+            systems. I like the parts of a system where correctness and interface design meet.
+          </p>
+          <div className="flex flex-wrap gap-3.5 pt-1.5">
+            <a
+              href="#projects"
+              onClick={(e) => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
+              className="border border-dsg-accent bg-dsg-accent px-6 py-3.5 font-mono text-xs uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent hover:text-dsg-accent"
+            >
+              See the work
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+              className="border border-dsg-line px-6 py-3.5 font-mono text-xs uppercase tracking-[0.14em] text-dsg-ink transition-colors hover:border-dsg-ink"
+            >
+              Get in touch
+            </a>
+          </div>
+        </div>
+
+        <div className="animate-drift">
+          <div className="relative aspect-[3/4] w-full max-w-[268px] overflow-hidden border border-dsg-frame">
+            <Image src="/profile.jpeg" alt="Krishna Tej" fill className="object-cover" priority />
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
