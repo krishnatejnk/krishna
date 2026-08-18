@@ -7,13 +7,13 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative z-[1] flex min-h-[78vh] flex-col justify-center pl-6 pt-32 sm:pl-10 sm:pt-40 md:pl-24 md:pt-[200px]"
+      className="relative z-[1] flex min-h-[78vh] flex-col justify-center pt-32 sm:pt-40 md:pt-[200px]"
     >
-      <div data-node="1" className="absolute left-[-8px] top-[210px] hidden h-[18px] w-[18px] md:block">
+      <div data-node="1" className="absolute left-0 top-[170px] hidden h-[18px] w-[18px] md:block">
         <div className="absolute inset-1 rounded-full bg-dsg-accent" />
       </div>
 
-      <Reveal className="grid max-w-[880px] items-center gap-12 md:grid-cols-[1fr,268px] lg:gap-16">
+      <Reveal className="mx-auto grid w-full max-w-[880px] items-center gap-12 md:grid-cols-[1fr,268px] lg:gap-16">
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.18em] text-dsg-accent">
             <span className="h-1.5 w-1.5 animate-blink rounded-full bg-dsg-accent" />

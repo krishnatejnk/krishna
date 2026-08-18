@@ -234,7 +234,7 @@ export default function Projects() {
   }, [selectedProject]);
 
   return (
-    <section id="projects" className="relative z-[1] pl-6 pt-24 sm:pl-10 sm:pt-32 md:pl-24 md:pt-[140px]">
+    <section id="projects" className="relative z-[1] pt-24 sm:pt-32 md:pt-[140px]">
       <div data-node="1" className="absolute left-[86%] top-[168px] hidden h-3 w-3 rounded-full border-2 border-dsg-accent bg-dsg-charcoal md:block" />
 
       <Reveal className="flex flex-col gap-3.5 pb-14">

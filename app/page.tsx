@@ -2,7 +2,8 @@ import Navbar from "./components/Navbar";
 import PageRoute from "./components/PageRoute";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
-import About from "./components/About";
+import Experience from "./components/Experience";
+import Education from "./components/Education";
 import Contact from "./components/Contact";
 
 export default function Home() {
@@ -12,7 +13,8 @@ export default function Home() {
       <PageRoute>
         <Hero />
         <Projects />
-        <About />
+        <Experience />
+        <Education />
         <Contact />
       </PageRoute>
     </main>

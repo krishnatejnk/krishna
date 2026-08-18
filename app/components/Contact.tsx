@@ -10,13 +10,13 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative z-[1] pl-6 pt-32 sm:pl-10 sm:pt-40 md:pl-24 md:pt-[150px]">
-      <div data-node="1" className="absolute left-[90%] top-[172px] hidden h-[22px] w-[22px] md:block">
+    <section id="contact" className="relative z-[1] pt-32 sm:pt-40 md:pt-[150px]">
+      <div data-node="1" className="absolute left-[80%] top-[172px] hidden h-[22px] w-[22px] md:block">
         <div className="absolute inset-1.5 rounded-full bg-dsg-accent" />
       </div>
 
       <Reveal className="flex flex-col gap-8">
-        <div className="font-mono text-xs uppercase tracking-[0.18em] text-dsg-ink-4">03 — Contact</div>
+        <div className="font-mono text-xs uppercase tracking-[0.18em] text-dsg-ink-4">04 — Contact</div>
         <h2 className="max-w-[640px] text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-[56px]">
           Let&apos;s talk!
         </h2>

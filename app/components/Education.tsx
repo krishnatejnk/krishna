@@ -1,15 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import Reveal from "./Reveal";
 
 const education = [
   {
     degree: "Master of Applied Computer Science",
     institution: "Dalhousie University",
     location: "Halifax, NS, Canada",
-    period: "Sep 2024 - Apr 2026",
+    period: "Sep 2024 – Apr 2026",
     gpa: "3.46 / 4.0",
     courses: [
       "Cloud Computing & Distributed Systems",
@@ -24,7 +22,7 @@ const education = [
     degree: "Bachelor of Computer Science Engineering",
     institution: "MVJ College of Engineering",
     location: "Bangalore, KA, India",
-    period: "Sep 2018 - Sep 2022",
+    period: "Sep 2018 – Sep 2022",
     gpa: "8.7 / 10.0",
     courses: [
       "Data Structures & Algorithms",
@@ -39,52 +37,43 @@ const education = [
 ];
 
 export default function Education() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
-
   return (
-    <section id="education" ref={ref} className="py-24 px-6 lg:px-8 bg-white dark:bg-neutral-950 border-t border-stone-100 dark:border-neutral-900">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <p className="text-amber-500 dark:text-amber-400 text-xs tracking-widest uppercase mb-3 font-medium">Education</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">Academic background.</h2>
-        </motion.div>
+    <section id="education" className="relative z-[1] pt-24 sm:pt-32 md:pt-[140px]">
+      <div data-node="1" className="absolute left-[92%] top-[168px] hidden h-3 w-3 rounded-full border-2 border-dsg-accent bg-dsg-charcoal md:block" />
 
-        <div>
-          {education.map((edu, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="border-t border-stone-200 dark:border-neutral-800 py-10 grid md:grid-cols-[220px,1fr] gap-6 md:gap-12"
-            >
-              <div className="pt-1">
-                <p className="text-neutral-400 dark:text-neutral-500 text-sm">{edu.period}</p>
-                <p className="text-neutral-300 dark:text-neutral-600 text-xs mt-1">{edu.location}</p>
-                <p className="text-amber-500 dark:text-amber-400 text-xs mt-3 font-medium">GPA: {edu.gpa}</p>
-              </div>
+      <Reveal className="flex flex-col gap-3.5 pb-14">
+        <div className="font-mono text-xs uppercase tracking-[0.18em] text-dsg-ink-4">03 — Academic background</div>
+        <h2 className="text-4xl font-medium tracking-[-0.02em] text-white">Education</h2>
+      </Reveal>
+
+      <Reveal>
+        {education.map((edu) => (
+          <div
+            key={edu.institution}
+            className="grid gap-4 border-t border-dsg-hairline py-8 md:grid-cols-[220px,1fr] md:gap-12"
+          >
+            <div>
+              <div className="font-mono text-sm text-dsg-ink-4">{edu.period}</div>
+              <div className="mt-1 font-mono text-xs text-dsg-ink-5">{edu.location}</div>
+              <div className="mt-3 font-mono text-xs uppercase tracking-[0.1em] text-dsg-accent">GPA {edu.gpa}</div>
+            </div>
+            <div className="flex flex-col gap-3">
               <div>
-                <h3 className="text-neutral-900 dark:text-neutral-100 font-semibold text-xl mb-1">{edu.degree}</h3>
-                <p className="text-neutral-500 dark:text-neutral-400 text-sm mb-6">{edu.institution}</p>
-                <div className="flex flex-wrap gap-2">
-                  {edu.courses.map((course) => (
-                    <span key={course} className="text-xs px-2.5 py-1 border border-stone-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-500 rounded">
-                      {course}
-                    </span>
-                  ))}
-                </div>
+                <div className="text-xl font-medium text-white">{edu.degree}</div>
+                <div className="mt-1 text-sm text-dsg-ink-2">{edu.institution}</div>
               </div>
-            </motion.div>
-          ))}
-          <div className="border-t border-stone-200 dark:border-neutral-800" />
-        </div>
-      </div>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {edu.courses.map((c) => (
+                  <span key={c} className="border border-dsg-chip px-2.5 py-1 font-mono text-[11px] text-dsg-ink-3">
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+        <div className="border-t border-dsg-hairline" />
+      </Reveal>
     </section>
   );
 }
