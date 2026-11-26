@@ -198,9 +198,9 @@ const projects: Project[] = [
     title: "This Portfolio",
     tagline: "Personal portfolio built with Next.js, Tailwind CSS, and Framer Motion.",
     description: [
-      "Portfolio built with Next.js and TypeScript, featuring Framer Motion animations and contact form integration via Resend API.",
+      "Portfolio built with Next.js and TypeScript, featuring Framer Motion animations.",
     ],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Resend API"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     github: "https://github.com/krishnatejnk/portfolio-site",
     link: null,
     type: "Web",

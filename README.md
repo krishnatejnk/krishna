@@ -18,7 +18,7 @@ A modern, bold, and creative portfolio website built with Next.js, TypeScript, T
 - **Projects** - Showcase of work with hover effects
 - **Education** - Educational background timeline
 - **Skills** - Animated skill bars and technology icons
-- **Contact** - Contact form and social links
+- **Contact** - Email, GitHub and LinkedIn links
 - **Footer** - Additional links and information
 
 ## Getting Started
@@ -27,7 +27,6 @@ A modern, bold, and creative portfolio website built with Next.js, TypeScript, T
 
 - Node.js 18+ installed
 - npm or yarn package manager
-- Resend account (for email functionality) - [Sign up here](https://resend.com)
 
 ### Installation
 
@@ -36,20 +35,12 @@ A modern, bold, and creative portfolio website built with Next.js, TypeScript, T
 npm install
 ```
 
-2. Set up environment variables:
-   - Create a `.env.local` file in the root directory
-   - Add your Resend API key:
-   ```
-   RESEND_API_KEY=re_your_api_key_here
-   ```
-   - Get your API key from [Resend Dashboard](https://resend.com/api-keys)
-
-3. Run the development server:
+2. Run the development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+3. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ### Build for Production
 
@@ -87,42 +78,13 @@ You can customize these in the component files by updating the gradient classes.
 ```
 /
 ├── app/
-│   ├── api/
-│   │   └── contact/
-│   │       └── route.ts    # API route for contact form (Vercel serverless function)
 │   ├── components/         # React components
 │   ├── layout.tsx          # Root layout
 │   ├── page.tsx            # Home page
 │   └── globals.css         # Global styles
 ├── public/                 # Static assets
-├── .env.local              # Environment variables (create this file)
 └── package.json            # Dependencies
 ```
-
-## Email Functionality
-
-The contact form uses Resend for sending emails. To set it up:
-
-1. **Create a Resend account** at [resend.com](https://resend.com)
-2. **Get your API key** from the [Resend Dashboard](https://resend.com/api-keys)
-3. **Add the API key** to your `.env.local` file:
-   ```
-   RESEND_API_KEY=re_your_api_key_here
-   ```
-4. **Update the sender email** in `app/api/contact/route.ts`:
-   - By default, it uses `onboarding@resend.dev` (works for testing)
-   - For production, verify your domain in Resend and update the `from` field
-
-### Deploying to Vercel
-
-When deploying to Vercel:
-
-1. Go to your project settings in Vercel
-2. Navigate to **Environment Variables**
-3. Add `RESEND_API_KEY` with your Resend API key value
-4. Redeploy your application
-
-The API route at `/api/contact` automatically becomes a Vercel serverless function when deployed.
 
 ## Technologies Used
 
@@ -131,7 +93,6 @@ The API route at `/api/contact` automatically becomes a Vercel serverless functi
 - **Tailwind CSS** - Utility-first CSS
 - **Framer Motion** - Animation library
 - **React 18** - UI library
-- **Resend** - Email service for contact form
 
 ## License
 
